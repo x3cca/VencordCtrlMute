@@ -79,6 +79,7 @@ export default definePlugin({
     description: "Ctrl-click a channel to mute it indefinitely; Ctrl-click again to unmute it",
     authors: [{ name: "x3cca", id: 0n }],
     tags: ["Notifications", "Shortcuts", "Utility"],
+    enabledByDefault: true,
 
     start() {
         document.addEventListener("click", onClick, true);
