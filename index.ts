@@ -6,7 +6,7 @@
 import { IS_MAC } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { ChannelType } from "@vencord/discord-types/enums";
-import { ChannelStore, RestAPI, UserGuildSettingsStore, showToast, Toasts } from "@webpack/common";
+import { ChannelStore, RestAPI, UserGuildSettingsStore, showToast } from "@webpack/common";
 
 const CHANNEL_ROW_SELECTOR = '[data-list-item-id^="channels___"]';
 const pendingChannels = new Set<string>();
@@ -37,13 +37,13 @@ async function toggleMute(channelId: string) {
             }
         });
 
-        showToast(
-            muted ? `Muted ${channel.name ?? "channel"} indefinitely` : `Unmuted ${channel.name ?? "channel"}`,
-            Toasts.Type.SUCCESS
-        );
+        showToast({
+            text: muted ? `Muted ${channel.name ?? "channel"} indefinitely` : `Unmuted ${channel.name ?? "channel"}`,
+            variant: "success"
+        });
     } catch (error) {
         console.error("CtrlMute: failed to update channel mute settings", error);
-        showToast(`Could not ${muted ? "mute" : "unmute"} ${channel.name ?? "channel"}`, Toasts.Type.FAILURE);
+        showToast({ text: `Could not ${muted ? "mute" : "unmute"} ${channel.name ?? "channel"}`, variant: "critical" });
     } finally {
         pendingChannels.delete(pendingKey);
     }
